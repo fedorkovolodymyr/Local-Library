@@ -6,11 +6,15 @@ from .models import Author, Book, Genra, BookInstance
 class BookInstanceInline(admin.TabularInline):
     model = BookInstance
 
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'display_genre')
     inlines = [BookInstanceInline]
 
+
+class BookInline(admin.StackedInline):
+    model = Book
 
 
 @admin.register(Author)
@@ -22,6 +26,7 @@ class AuthorAdmin(admin.ModelAdmin):
         'date_of_death',
     )
     fields =['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
+    inlines = [BookInline]
 
 
 admin.site.register(Genra)
