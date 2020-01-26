@@ -40,7 +40,7 @@ class Author(models.Model):
     )
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['last_name']
 
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
@@ -57,7 +57,7 @@ class Book(models.Model):
 
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in the file
-    author = models.OneToOneField(
+    author = models.ForeignKey(
         'Author', 
         on_delete=models.SET_NULL,
         null=True
